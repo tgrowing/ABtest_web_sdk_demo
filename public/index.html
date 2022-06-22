@@ -1,0 +1,40 @@
+<!--
+ * @Descripttion: 
+ * @Author: sherrysong
+ * @Date: 2022-05-06 15:58:26
+ * @LastEditors: sherrysong
+ * @LastEditTime: 2022-06-14 16:49:39
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+  <!-- <link rel="stylesheet" href="dist/css/swiper-bundle.min.css"> -->
+  <title>
+   web参数实验demo
+  </title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+<script src="./tabc_sdk.min.js" charset="utf-8"> </script>
+
+<script type="text/javascript">
+  const bTest = window.localStorage.getItem('abtest_env') == '2' ? true : false;
+  const localAppkey = window.localStorage.getItem('abtest_appkey');
+  console.log("localAppkey,bTest",localAppkey,bTest);
+  const appkey = localAppkey ? localAppkey : 'a78c1190d86b96c663d538c057cdea83';
+  
+</script>
+</html>
