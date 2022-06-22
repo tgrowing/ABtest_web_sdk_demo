@@ -3,9 +3,10 @@
  * @Author: sherrysong
  * @Date: 2022-05-06 15:58:26
  * @LastEditors: sherrysong
- * @LastEditTime: 2022-06-14 16:48:29
+ * @LastEditTime: 2022-06-22 16:51:35
 -->
 # abtest web 参数实验demo
+##### 可视化实验配置后会自动进行逻辑处理，自动上报
 
 ## Project setup
 ```

@@ -3,7 +3,7 @@
  * @Author: sherrysong
  * @Date: 2022-05-06 15:58:26
  * @LastEditors: sherrysong
- * @LastEditTime: 2022-06-14 16:48:14
+ * @LastEditTime: 2022-06-22 16:52:47
 -->
 <template>
   <div class="content">
@@ -29,16 +29,6 @@
           <el-button :disabled="initStatus" type="primary" @click="onSubmit">初始化</el-button>
         </el-form-item>
       </el-form>
-      <!-- <div class="title">切换用户</div>
-      <el-form ref="form2" :model="form" label-width="120px">
-         <el-form-item label="用户id">
-          <el-input v-model="form.guid"></el-input>
-        </el-form-item>
-        
-        <el-form-item>
-          <el-button :disabled="initStatus" type="primary" @click="switchUser">提交</el-button>
-        </el-form-item>
-      </el-form> -->
       <div class="title">上报一次曝光</div>
       <el-form ref="form3" :model="form3" label-width="120px">
          <el-form-item label="实验id">
@@ -67,8 +57,6 @@
 </template>
 
 <script>
-// import abtest from './utils/tabc_sdk.min.js';
-// console.log("abtest",abtest);
 export default {
   name: 'Demo',
   components: {
@@ -79,10 +67,10 @@ export default {
     return {
       initStatus: false,
       form: {
-        appkey:'b2662644e05999e45cbc277ac116460b',
+        appkey:'',
         reportUrl: '',
         experimentUrl: '',
-        isTest:true,
+        isTest:false,
         guid: '',
       },
       form3:{
@@ -99,15 +87,24 @@ export default {
   },
   methods: {
     onSubmit(){
-      const {appkey,isTest,reportUrl,
-        experimentUrl,
-        guid,} = this.form;
-      const self = this;
-      window.tabc&&window.tabc.init({
+      const {
         appkey,
         isTest,
         reportUrl,
         experimentUrl,
+        guid,
+        } = this.form;
+      const self = this;
+      window.tabc&&window.tabc.init({
+        // appkey 必填写
+        appkey,
+        // 选填，为true表示测试环境
+        isTest,
+        // 选填，私有化用户必填
+        reportUrl,
+        // 选填，私有化用户必填
+        experimentUrl,
+        // 选填
         guid,
         onInit: function (data) {
           console.log('onInit',data);
@@ -122,11 +119,13 @@ export default {
       const {expId} = this.form3;
       const exp = await window.tabc.getExpByName(expId);
       console.log("exp",exp);
+      // 上报一次实验曝光
       window.tabc.reportExpExpose(exp);
     },
     async reportExpAndCodeData(){
       const {expId,eventCode} = this.form3;
       const exp = await window.tabc.getExpByName(expId);
+      // 上报一次事件
       window.tabc.reportExpEvent(eventCode,exp);
     },
     switchUser(){
